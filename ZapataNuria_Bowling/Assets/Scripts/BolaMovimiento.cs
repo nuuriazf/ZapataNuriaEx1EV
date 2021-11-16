@@ -11,6 +11,7 @@ public class BolaMovimiento : MonoBehaviour
     InitGame initGame;
     Vector3 InitPos;
     bool lanzar;
+    GameObject punteroobjeto;
     
 
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class BolaMovimiento : MonoBehaviour
 
         InitPos = transform.position;
         transform.position = (InitPos);
+        punteroobjeto = GameObject.Find("Puntero");
         
     }
 
@@ -45,8 +47,12 @@ public class BolaMovimiento : MonoBehaviour
         {
             print("espacio pulsado");
             transform.LookAt(puntero);
-            rbBola.AddForce(new Vector3(0, 0, 500f) * fuerza * Time.deltaTime);
+            rbBola.AddForce(transform.forward * fuerza );
             lanzar = true;
+            Destroy(punteroobjeto);
+
+            rbBola.velocity = Vector3.zero;
+            rbBola.angularVelocity = Vector3.zero;
         }
 
         /*if (Input.GetKeyDown(KeyCode.Space))
