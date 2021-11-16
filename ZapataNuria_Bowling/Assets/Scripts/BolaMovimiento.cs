@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BolaMovimiento : MonoBehaviour
 {
@@ -47,23 +48,38 @@ public class BolaMovimiento : MonoBehaviour
         {
             print("espacio pulsado");
             transform.LookAt(puntero);
-            rbBola.AddForce(transform.forward * fuerza );
+            rbBola.AddForce(transform.forward * fuerza);
             lanzar = true;
             Destroy(punteroobjeto);
 
             rbBola.velocity = Vector3.zero;
             rbBola.angularVelocity = Vector3.zero;
         }
-
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            print("espacio pulsado");
-            transform.LookAt(puntero);
-            rbBola.AddForce(new Vector3(0f, 0f, fuerza));
-          
-
-
-        }*/
-
     }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Bolo")
+            {
+                TextoBolos.boloscaidos++;
+            }
+        if (other.gameObject.layer == 6)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+   
+
+    /*if (Input.GetKeyDown(KeyCode.Space))
+    {
+        print("espacio pulsado");
+        transform.LookAt(puntero);
+        rbBola.AddForce(new Vector3(0f, 0f, fuerza));
+
+
+
+    }*/
+
 }
+
